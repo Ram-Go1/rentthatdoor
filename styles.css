@@ -460,3 +460,10 @@ input[type="number"],.footer,.footer *{
  font-variant-numeric:lining-nums tabular-nums;
 }
 .price,.price *, .detail-price,.detail-price *,.facts,.facts *,.result-count{font-weight:300!important}
+
+
+/* Sitewide Times New Roman typography, including all numerals */
+html,body,body *,button,input,select,textarea,option{
+ font-family:"Times New Roman",Times,serif!important;
+ font-variant-numeric:normal!important;
+}
