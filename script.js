@@ -192,7 +192,32 @@ function details(id){
 document.getElementById("close").onclick=()=>dlg.close();
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
 ["rentRange","beds","baths"].forEach(id=>document.getElementById(id).addEventListener("change",render));
-document.getElementById("search").addEventListener("input",render);
+const locationInput=document.getElementById("search");
+const locationSuggestions=document.getElementById("searchSuggestions");
+const locations=[...new Set(listings.map(p=>p.city))];
+function showLocationSuggestions(){
+ const term=locationInput.value.trim().toLowerCase();
+ locationSuggestions.replaceChildren();
+ const matches=term?locations.filter(city=>city.toLowerCase().includes(term)||city.toLowerCase().split(",")[0].startsWith(term)):locations;
+ matches.forEach(city=>{
+  const option=document.createElement("button");
+  option.type="button";
+  option.className="location-option";
+  option.setAttribute("role","option");
+  option.textContent="⌖  "+city;
+  option.addEventListener("mousedown",e=>e.preventDefault());
+  option.addEventListener("click",()=>{locationInput.value=city;locationSuggestions.hidden=true;render();});
+  locationSuggestions.appendChild(option);
+ });
+ locationSuggestions.hidden=!matches.length;
+}
+locationInput.addEventListener("input",()=>{render();showLocationSuggestions();});
+locationInput.addEventListener("focus",showLocationSuggestions);
+locationInput.addEventListener("keydown",e=>{
+ if(e.key==="Escape")locationSuggestions.hidden=true;
+ if(e.key==="Enter"&&!locationSuggestions.hidden&&locationSuggestions.firstElementChild){e.preventDefault();locationSuggestions.firstElementChild.click();}
+});
+locationInput.addEventListener("blur",()=>{setTimeout(()=>locationSuggestions.hidden=true,150);});
 document.getElementById("filter").onclick=render;
 document.getElementById("year").textContent=new Date().getFullYear();
 document.getElementById("menu").onclick=()=>document.querySelector(".header nav").classList.toggle("open");
