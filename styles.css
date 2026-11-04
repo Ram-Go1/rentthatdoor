@@ -343,3 +343,11 @@ img,iframe{max-width:100%}
 @media(min-width:721px) and (max-width:1000px){
  .search-panel.rental-filters{grid-template-columns:minmax(180px,1fr) repeat(3,100px) 90px!important;gap:5px!important}
 }
+
+
+/* Search suggestions, anchored below the location field */
+.rental-filters .location-search{position:relative!important}
+.rental-filters .search-suggestions{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:1100;background:#fff;border:1px solid #dfe4e8;border-radius:4px;box-shadow:0 9px 24px #0000001c;overflow:hidden}
+.rental-filters .search-suggestions[hidden]{display:none!important}
+.rental-filters .location-option{display:block;width:100%;text-align:left;border:0;background:#fff;padding:11px 13px;font-size:13px;color:#263746;cursor:pointer}
+.rental-filters .location-option:hover,.rental-filters .location-option:focus{background:#f0f5f3}
