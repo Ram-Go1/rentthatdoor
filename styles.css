@@ -421,3 +421,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .overline,.property-type,.accent{color:#d95613}
 .demo-notice{background:#fff3e6;border-left-color:#ed7c24;color:#7b3b1c}
 ::selection{background:#ffd8ae;color:#69250d}
+
+
+/* Luxury editorial typography — elegant serif headings and clean refined UI */
+body,button,input,select,textarea,.header nav,.search-panel,.property-info,.detail-copy,.faq,.footer,.btn{font-family:"Jost",Arial,sans-serif!important}
+h1,h2,h3,h4,.section-head h2,.property h3,.detail-copy h2,.faq h2,.steps h2,.value-content h2{font-family:"Cormorant Garamond",Georgia,serif!important;font-weight:600!important;letter-spacing:-.025em!important;line-height:1.12!important}
+.section-head h2,.value-content h2,.faq h2,.steps h2{font-size:clamp(32px,3.4vw,46px)!important}
+.property h3{font-size:25px!important}
+.price,.detail-price{font-family:"Cormorant Garamond",Georgia,serif!important;font-size:29px!important;font-weight:700!important;letter-spacing:-.02em!important}
+.header nav,.header-cta{font-weight:500!important;letter-spacing:.035em!important}
+.search-field span,.overline,.property-type,.eyebrow{font-family:"Jost",sans-serif!important;font-weight:600!important;letter-spacing:.1em!important}
+.btn,.rental-filters select,.rental-filters input{font-family:"Jost",sans-serif!important;font-weight:500!important}
+@media(max-width:600px){.section-head h2,.value-content h2,.faq h2{font-size:33px!important}.property h3{font-size:23px!important}.price{font-size:27px!important}}
