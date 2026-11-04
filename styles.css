@@ -447,3 +447,16 @@ h1,h2,h3,h4,.section-head h2,.property h3,.detail-copy h2,.faq h2,.steps h2,.val
 h1,h2,h3,h4,.section-head h2,.property h3,.detail-copy h2,.faq h2,.steps h2,.value-content h2{line-height:1.22!important;letter-spacing:-.015em!important}
 .header nav,.header-cta,.btn,.search-field span,.overline,.property-type,.eyebrow{font-weight:400!important}
 .price,.detail-price{font-weight:400!important}
+
+
+/* Consistent Arial Nova Light numerals throughout listing and detail views */
+.price,.price *, .detail-price,.detail-price *, .facts,.facts *, .result-count,
+.property-bottom,.property-bottom *, .detail-status,.detail-status *,
+.property-info,.property-info *, .search-panel input,.search-panel select,
+.rental-filters input,.rental-filters select,.tag,.property-type,
+.detail-copy,.detail-copy *, .map-popup,.map-popup *,
+input[type="number"],.footer,.footer *{
+ font-family:"Arial Nova Light","Arial Nova",Arial,"Helvetica Neue",sans-serif!important;
+ font-variant-numeric:lining-nums tabular-nums;
+}
+.price,.price *, .detail-price,.detail-price *,.facts,.facts *,.result-count{font-weight:300!important}
