@@ -105,3 +105,12 @@ dialog{max-height:90vh;overflow:auto}
 .map-footer{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:14px 17px;font-size:12px;color:#375244;flex-wrap:wrap}.map-footer a{color:#1e5943;font-weight:800}
 @media(max-width:850px){.results-layout{grid-template-columns:1fr}.results-map{position:static}.results-map iframe{height:350px}}
 @media(max-width:600px){.results-map iframe{height:300px}}
+
+/* Price labels instead of standard map pins */
+.results-map #resultsMap{height:510px;width:100%;background:#e6ece6}
+.rental-price-icon{background:transparent;border:0}
+.rental-price-icon span{display:inline-flex;justify-content:center;align-items:center;min-width:105px;padding:9px 12px;border-radius:24px;background:#183f33;color:#fff;border:2px solid #fff;box-shadow:0 3px 12px #0004;font:800 14px "DM Sans",sans-serif;white-space:nowrap;cursor:pointer}
+.rental-price-icon span:hover{background:#bd8644}
+.map-selected{outline:2px solid #b88b4e;outline-offset:3px}
+@media(max-width:850px){.results-map #resultsMap{height:350px}}
+@media(max-width:600px){.results-map #resultsMap{height:300px}}
