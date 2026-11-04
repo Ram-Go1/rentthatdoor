@@ -86,17 +86,34 @@ const money=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",ma
 const mapUrl=p=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(p.address);
 const mapEmbed=p=>"https://maps.google.com/maps?q="+encodeURIComponent(p.address)+"&z=15&output=embed";
 function photo(p){return p.image?`<img src="${p.image}" alt="${p.title}" loading="lazy">`:'<div class="photo-pending">Property photos being added</div>'}
+function gallery(p){
+ const photos=p.photos||[];
+ if(!photos.length)return photo(p);
+ return `<div class="photo-slider" data-gallery="${p.id}" tabindex="0" aria-label="Photo gallery for ${p.title}"><img class="slide-image" src="${photos[0]}" alt="${p.title} photo 1" onerror="this.closest('.photo-slider').classList.add('gallery-missing')"><div class="gallery-fallback">Property photos being added</div><button type="button" class="slide-prev" aria-label="Previous photo">‹</button><button type="button" class="slide-next" aria-label="Next photo">›</button><span class="slide-count">1 / ${photos.length}</span></div>`;
+}
+function activateGalleries(root=document){
+ root.querySelectorAll(".photo-slider").forEach(el=>{
+  const p=listings.find(x=>x.id===Number(el.dataset.gallery));if(!p)return;
+  let index=0;const photos=p.photos||[],img=el.querySelector(".slide-image"),counter=el.querySelector(".slide-count");
+  const show=i=>{index=(i+photos.length)%photos.length;img.src=photos[index];img.alt=p.title+" photo "+(index+1);counter.textContent=(index+1)+" / "+photos.length;el.classList.remove("gallery-missing")};
+  el.querySelector(".slide-prev").onclick=e=>{e.stopPropagation();show(index-1)};
+  el.querySelector(".slide-next").onclick=e=>{e.stopPropagation();show(index+1)};
+  let x=null;el.addEventListener("touchstart",e=>{x=e.changedTouches[0].screenX},{passive:true});el.addEventListener("touchend",e=>{if(x===null)return;const d=e.changedTouches[0].screenX-x;if(Math.abs(d)>40)show(index+(d<0?1:-1));x=null},{passive:true});
+  el.addEventListener("keydown",e=>{if(e.key==="ArrowRight")show(index+1);if(e.key==="ArrowLeft")show(index-1)});
+ });
+}
 function render(){
  const term=document.getElementById("search").value.toLowerCase().trim(),type=document.getElementById("type").value,status=document.getElementById("status").value;
  const found=listings.filter(p=>(!term||[p.title,p.city,p.address,p.type].join(" ").toLowerCase().includes(term))&&(type==="all"||p.type===type)&&(status==="all"||p.status===status));
  count.textContent=found.length+" propert"+(found.length===1?"y":"ies");empty.hidden=found.length!==0;
- cards.innerHTML=found.map(p=>`<article class="property"><div class="property-photo">${photo(p)}<span class="tag">${p.status}</span></div><div class="property-info"><span class="property-type">${p.type} · ${p.city}</span><h3>${p.title}</h3><div class="address">⌖ ${p.address}</div><div class="facts"><span>${p.beds} beds · ${p.baths} baths · ${p.sqft.toLocaleString()} sq ft</span><span>${p.garage}</span></div><div class="property-bottom"><span class="price">${p.rent?money(p.rent)+"/mo":p.status==="Rented"?"Rented":"Rent on request"}</span></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
+ cards.innerHTML=found.map(p=>`<article class="property"><div class="property-photo">${gallery(p)}<span class="tag">${p.status}</span></div><div class="property-info"><span class="property-type">${p.type} · ${p.city}</span><h3>${p.title}</h3><div class="address">⌖ ${p.address}</div><div class="facts"><span>${p.beds} beds · ${p.baths} baths · ${p.sqft.toLocaleString()} sq ft</span><span>${p.garage}</span></div><div class="property-bottom"><span class="price">${p.rent?money(p.rent)+"/mo":p.status==="Rented"?"Rented":"Rent on request"}</span></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
+ activateGalleries(cards);
  cards.querySelectorAll("[data-id]").forEach(b=>b.addEventListener("click",()=>details(Number(b.dataset.id))));
 }
 function details(id){
  const p=listings.find(x=>x.id===id);
- document.getElementById("detailBody").innerHTML=`<div class="detail-image">${photo(p)}</div><div class="detail-copy"><span class="overline">RENTTHATDOOR · PROPERTY DETAILS</span><h2>${p.title}</h2><div class="detail-status">${p.availableDate?"Available November 15, 2026":p.status}</div><p>${p.address}</p><p class="detail-price">${p.rent?money(p.rent)+"/month":p.status==="Rented"?"Currently rented":"Contact for pricing"}</p><p>${p.description}</p><p><strong>Features:</strong> ${p.beds} bedrooms · ${p.baths} bathrooms · ${p.sqft.toLocaleString()} sq ft · ${p.garage}</p>${p.leaseTerm?`<p><strong>Lease term:</strong> ${p.leaseTerm}</p>`:""}<h3>Location</h3><iframe class="property-map" loading="lazy" title="Map of ${p.address}" src="${mapEmbed(p)}" referrerpolicy="no-referrer-when-downgrade"></iframe><a class="map-link detail-map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">Open larger map ↗</a><a class="btn btn-dark" href="#contact" id="detailContact">Ask about this home ↗</a></div>`;
- dlg.showModal();document.getElementById("detailContact").addEventListener("click",()=>{dlg.close();document.querySelector('[name="message"]').value="I would like more information about "+p.address+"."});
+ document.getElementById("detailBody").innerHTML=`<div class="detail-image">${gallery(p)}</div><div class="detail-copy"><span class="overline">RENTTHATDOOR · PROPERTY DETAILS</span><h2>${p.title}</h2><div class="detail-status">${p.availableDate?"Available November 15, 2026":p.status}</div><p>${p.address}</p><p class="detail-price">${p.rent?money(p.rent)+"/month":p.status==="Rented"?"Currently rented":"Contact for pricing"}</p><p>${p.description}</p><p><strong>Features:</strong> ${p.beds} bedrooms · ${p.baths} bathrooms · ${p.sqft.toLocaleString()} sq ft · ${p.garage}</p>${p.leaseTerm?`<p><strong>Lease term:</strong> ${p.leaseTerm}</p>`:""}<h3>Location</h3><iframe class="property-map" loading="lazy" title="Map of ${p.address}" src="${mapEmbed(p)}" referrerpolicy="no-referrer-when-downgrade"></iframe><a class="map-link detail-map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">Open larger map ↗</a><a class="btn btn-dark" href="#contact" id="detailContact">Ask about this home ↗</a></div>`;
+ dlg.showModal();activateGalleries(document.getElementById("detailBody"));document.getElementById("detailContact").addEventListener("click",()=>{dlg.close();document.querySelector('[name="message"]').value="I would like more information about "+p.address+"."});
 }
 document.getElementById("close").onclick=()=>dlg.close();
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
