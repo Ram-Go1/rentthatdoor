@@ -8,11 +8,12 @@
     "beds": null,
     "baths": null,
     "sqft": null,
-    "rent": null,
+    "rent": 2800,
     "status": "Rented",
     "image": null,
-    "description": "West Trinity Lane townhome currently rented. Photos and property specifications are being verified.",
-    "availableDate": null
+    "description": "West Trinity Lane townhome currently rented. Monthly rent is $2,800 with a minimum 12-month lease.",
+    "availableDate": null,
+    "leaseTerm": "Minimum 12-month lease"
   },
   {
     "id": 2,
@@ -23,11 +24,12 @@
     "beds": null,
     "baths": null,
     "sqft": null,
-    "rent": null,
+    "rent": 2800,
     "status": "Rented",
     "image": null,
-    "description": "West Trinity Lane townhome currently rented. Photos and property specifications are being verified.",
-    "availableDate": null
+    "description": "West Trinity Lane townhome currently rented. Monthly rent is $2,800 with a minimum 12-month lease.",
+    "availableDate": null,
+    "leaseTerm": "Minimum 12-month lease"
   },
   {
     "id": 3,
@@ -38,11 +40,12 @@
     "beds": null,
     "baths": null,
     "sqft": null,
-    "rent": null,
+    "rent": 2800,
     "status": "Rented",
     "image": null,
-    "description": "West Trinity Lane townhome currently rented. Photos and property specifications are being verified.",
-    "availableDate": null
+    "description": "West Trinity Lane townhome currently rented. Monthly rent is $2,800 with a minimum 12-month lease.",
+    "availableDate": null,
+    "leaseTerm": "Minimum 12-month lease"
   },
   {
     "id": 4,
@@ -53,11 +56,12 @@
     "beds": null,
     "baths": null,
     "sqft": null,
-    "rent": null,
+    "rent": 2800,
     "status": "Rented",
     "image": null,
-    "description": "West Trinity Lane townhome currently rented. Photos and property specifications are being verified.",
-    "availableDate": null
+    "description": "West Trinity Lane townhome currently rented. Monthly rent is $2,800 with a minimum 12-month lease.",
+    "availableDate": null,
+    "leaseTerm": "Minimum 12-month lease"
   },
   {
     "id": 5,
@@ -68,11 +72,12 @@
     "beds": null,
     "baths": null,
     "sqft": null,
-    "rent": null,
+    "rent": 2800,
     "status": "Rented",
     "image": null,
-    "description": "West Trinity Lane townhome currently rented. Photos and property specifications are being verified.",
-    "availableDate": null
+    "description": "West Trinity Lane townhome currently rented. Monthly rent is $2,800 with a minimum 12-month lease.",
+    "availableDate": null,
+    "leaseTerm": "Minimum 12-month lease"
   },
   {
     "id": 6,
@@ -83,11 +88,12 @@
     "beds": null,
     "baths": null,
     "sqft": null,
-    "rent": null,
+    "rent": 2800,
     "status": "Available",
     "image": null,
-    "description": "West Trinity Lane townhome available beginning November 15, 2026. Contact us for pricing and floor plan details.",
-    "availableDate": "2026-11-15"
+    "description": "West Trinity Lane townhome available November 15, 2026. Monthly rent is $2,800 with a minimum 12-month lease. Contact us for floor plan details.",
+    "availableDate": "2026-11-15",
+    "leaseTerm": "Minimum 12-month lease"
   },
   {
     "id": 7,
@@ -98,11 +104,12 @@
     "beds": null,
     "baths": null,
     "sqft": null,
-    "rent": null,
+    "rent": 2800,
     "status": "Rented",
     "image": null,
-    "description": "West Trinity Lane townhome currently rented. Photos and property specifications are being verified.",
-    "availableDate": null
+    "description": "West Trinity Lane townhome currently rented. Monthly rent is $2,800 with a minimum 12-month lease.",
+    "availableDate": null,
+    "leaseTerm": "Minimum 12-month lease"
   },
   {
     "id": 8,
@@ -113,11 +120,12 @@
     "beds": null,
     "baths": null,
     "sqft": null,
-    "rent": null,
+    "rent": 2800,
     "status": "Available",
     "image": null,
-    "description": "West Trinity Lane townhome available beginning November 15, 2026. Contact us for pricing and floor plan details.",
-    "availableDate": "2026-11-15"
+    "description": "West Trinity Lane townhome available November 15, 2026. Monthly rent is $2,800 with a minimum 12-month lease. Contact us for floor plan details.",
+    "availableDate": "2026-11-15",
+    "leaseTerm": "Minimum 12-month lease"
   },
   {
     "id": 9,
@@ -159,12 +167,12 @@ function render(){
  const term=document.getElementById("search").value.toLowerCase().trim(),type=document.getElementById("type").value,status=document.getElementById("status").value;
  const found=listings.filter(p=>(!term||[p.title,p.city,p.address,p.type].join(" ").toLowerCase().includes(term))&&(type==="all"||p.type===type)&&(status==="all"||p.status===status));
  count.textContent=found.length+" propert"+(found.length===1?"y":"ies");empty.hidden=found.length!==0;
- cards.innerHTML=found.map(p=>`<article class="property"><div class="property-photo">${photo(p)}<span class="tag">${p.status}</span></div><div class="property-info"><span class="property-type">${p.type} · ${p.city}</span><h3>${p.title}</h3><div class="address">⌖ ${p.address}</div><div class="facts"><span>Floor plan: inquire</span><span>${p.availableDate?"Available Nov 15, 2026":p.status}</span></div><div class="property-bottom"><span class="price">${p.rent?money(p.rent)+"/mo":p.status==="Rented"?"Rented":"Rent on request"}</span></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
+ cards.innerHTML=found.map(p=>`<article class="property"><div class="property-photo">${photo(p)}<span class="tag">${p.status}</span></div><div class="property-info"><span class="property-type">${p.type} · ${p.city}</span><h3>${p.title}</h3><div class="address">⌖ ${p.address}</div><div class="facts"><span>${p.leaseTerm||"Floor plan: inquire"}</span><span>${p.availableDate?"Available Nov 15, 2026":p.status}</span></div><div class="property-bottom"><span class="price">${p.rent?money(p.rent)+"/mo":p.status==="Rented"?"Rented":"Rent on request"}</span></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
  cards.querySelectorAll("[data-id]").forEach(b=>b.addEventListener("click",()=>details(Number(b.dataset.id))));
 }
 function details(id){
  const p=listings.find(x=>x.id===id);
- document.getElementById("detailBody").innerHTML=`<div class="detail-image">${photo(p)}</div><div class="detail-copy"><span class="overline">RENTTHATDOOR · PROPERTY DETAILS</span><h2>${p.title}</h2><div class="detail-status">${p.availableDate?"Available November 15, 2026":p.status}</div><p>${p.address}</p><p class="detail-price">${p.rent?money(p.rent)+"/month":p.status==="Rented"?"Currently rented":"Contact for pricing"}</p><p>${p.description}</p><h3>Location</h3><iframe class="property-map" loading="lazy" title="Map of ${p.address}" src="${mapEmbed(p)}" referrerpolicy="no-referrer-when-downgrade"></iframe><a class="map-link detail-map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">Open larger map ↗</a><a class="btn btn-dark" href="#contact" id="detailContact">Ask about this home ↗</a></div>`;
+ document.getElementById("detailBody").innerHTML=`<div class="detail-image">${photo(p)}</div><div class="detail-copy"><span class="overline">RENTTHATDOOR · PROPERTY DETAILS</span><h2>${p.title}</h2><div class="detail-status">${p.availableDate?"Available November 15, 2026":p.status}</div><p>${p.address}</p><p class="detail-price">${p.rent?money(p.rent)+"/month":p.status==="Rented"?"Currently rented":"Contact for pricing"}</p><p>${p.description}</p>${p.leaseTerm?`<p><strong>Lease term:</strong> ${p.leaseTerm}</p>`:""}<h3>Location</h3><iframe class="property-map" loading="lazy" title="Map of ${p.address}" src="${mapEmbed(p)}" referrerpolicy="no-referrer-when-downgrade"></iframe><a class="map-link detail-map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">Open larger map ↗</a><a class="btn btn-dark" href="#contact" id="detailContact">Ask about this home ↗</a></div>`;
  dlg.showModal();document.getElementById("detailContact").addEventListener("click",()=>{dlg.close();document.querySelector('[name="message"]').value="I would like more information about "+p.address+"."});
 }
 document.getElementById("close").onclick=()=>dlg.close();
