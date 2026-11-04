@@ -351,3 +351,18 @@ img,iframe{max-width:100%}
 .rental-filters .search-suggestions[hidden]{display:none!important}
 .rental-filters .location-option{display:block;width:100%;text-align:left;border:0;background:#fff;padding:11px 13px;font-size:13px;color:#263746;cursor:pointer}
 .rental-filters .location-option:hover,.rental-filters .location-option:focus{background:#f0f5f3}
+
+
+/* Elegant, lightweight, gently slanted RentThatDoor wordmark */
+.header .brand-name,.footer-top .brand-name{
+ font-family:"Playfair Display",Georgia,serif!important;
+ font-style:italic!important;
+ font-weight:500!important;
+ font-size:25px!important;
+ letter-spacing:-.7px!important;
+ line-height:1.08!important;
+ transform:skewX(-3deg);
+ transform-origin:left center;
+}
+.header .brand-tagline{font-family:"DM Sans",sans-serif!important;font-style:normal!important;font-weight:400!important;letter-spacing:.15px!important}
+@media(max-width:600px){.header .brand-name{font-size:21px!important}}
