@@ -467,3 +467,42 @@ html,body,body *,button,input,select,textarea,option{
  font-family:"Times New Roman",Times,serif!important;
  font-variant-numeric:normal!important;
 }
+
+
+/* Compact, refined rental search inspired by approved visual reference */
+.header{height:82px!important;padding-inline:4.5%!important}
+.header .brand-image{width:clamp(210px,23vw,295px)!important;max-height:62px!important}
+.search-wrap{max-width:1600px!important;padding:32px clamp(18px,3vw,46px) 75px!important}
+.section-head{margin-bottom:10px!important}
+.section-head .overline{font-size:11px!important}
+.search-panel.rental-filters{display:grid!important;grid-template-columns:minmax(240px,2.8fr) repeat(3,minmax(105px,1fr)) minmax(110px,.8fr)!important;gap:12px!important;padding:12px!important;background:#fff6ed!important;border:1px solid #f5e5d7!important;border-radius:10px!important;margin:12px 0 18px!important}
+.search-panel.rental-filters .location-search,.search-panel.rental-filters .search-field{height:48px!important;min-height:48px!important;background:#fff!important;border:1px solid #e9d7c8!important;border-radius:7px!important;padding:5px 12px!important;box-shadow:none!important}
+.search-panel.rental-filters .location-search input{font-size:13px!important;color:#61291c!important}
+.search-panel.rental-filters .search-field span{font-size:9px!important;line-height:12px!important;letter-spacing:.045em!important;color:#9d6a53!important}
+.search-panel.rental-filters .search-field select{font-size:12px!important;height:23px!important;line-height:22px!important;padding-right:14px!important;color:#61291c!important}
+.search-panel.rental-filters .btn{height:48px!important;min-height:48px!important;font-size:12px!important;padding:8px 12px!important;border-radius:7px!important;background:linear-gradient(120deg,#f26a12,#cf390b)!important;color:#fff!important;justify-content:center!important;gap:5px!important}
+.results-layout{gap:24px!important}
+.results-list,.results-map{min-width:0!important}
+.listing-card .listing-price,.listing-card .listing-price *, .listing-price-row .listing-price{font-size:19px!important;line-height:1.15!important;font-weight:400!important}
+.listing-card .listing-price small{font-size:11px!important}
+.listing-card .facts,.listing-card .facts *,.listing-card .property-info,.listing-card .address{font-size:12px!important}
+.listing-card h3,.property h3{font-size:21px!important}
+.rental-price-icon{width:105px!important;height:32px!important}
+.rental-price-icon span{font-size:12px!important;padding:5px 8px!important;line-height:17px!important;white-space:nowrap!important}
+.leaflet-popup-content,.leaflet-popup-content p{font-size:12px!important}
+.map-heading,.map-footer{font-size:12px!important}
+@media(max-width:900px){
+ .search-panel.rental-filters{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}
+ .search-panel.rental-filters .location-search{grid-column:1/-1!important}
+ .search-panel.rental-filters .btn{grid-column:1/-1!important}
+}
+@media(max-width:600px){
+ .header{height:72px!important;padding-inline:15px!important}
+ .header .brand-image{width:clamp(180px,53vw,235px)!important}
+ .search-wrap{padding:22px 14px 55px!important}
+ .search-panel.rental-filters{padding:9px!important;gap:6px!important}
+ .search-panel.rental-filters .search-field{padding:4px 6px!important;height:45px!important;min-height:45px!important}
+ .search-panel.rental-filters .search-field span{font-size:8px!important}
+ .search-panel.rental-filters .search-field select{font-size:11px!important;padding-right:8px!important}
+ .listing-card .listing-price{font-size:18px!important}
+}
