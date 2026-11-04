@@ -80,13 +80,13 @@ const listings=[
     "sqft": 2065,
     "rent": 2850,
     "status": "Available",
-    "image": null,
+    "image": "images/1613-hampton-st/0a2723bbc4bde51a21c74ceb389dc1c7-uncropped_scaled_within_1536_1152.webp",
     "description": "3 bedrooms, 2.5 bathrooms, 2,065 sq ft, washer and dryer, dishwasher, 2-car garage and downtown views. Available now for $2,850/month.",
     "availableDate": null,
     "leaseTerm": "Contact for lease details",
     "garage": "2-car garage",
     "amenities": ["Washer & dryer","Dishwasher","2-car garage","Downtown views"],
-    "photos": []
+    "photos": ["images/1613-hampton-st/0a2723bbc4bde51a21c74ceb389dc1c7-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/122c84e8ee09f28736a4b56d0ab28222-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/12cb607beec4ace7cd85653bfb62baac-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/16e9b9ce55efe63e48af86a4e6b6b3d5-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/2e77e9202cffea2329880f6395699820-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/40ae8c4e2ec29ca889db30a37f89ba3e-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/4e8b43ea20c644edba25ef0df1cb0947-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/4feeda1b54ba940a515a5c04df08b338-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/67952e8241b2c3cd4a244c493b0c6cb1-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/6cd34689a267ecd01fe4bfad1ee4c0fc-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/6e852149e4c77a2ad3d653802957e029-uncropped_scaled_within_1536_1152 (1).webp","images/1613-hampton-st/6e852149e4c77a2ad3d653802957e029-uncropped_scaled_within_1536_1152 (2).webp","images/1613-hampton-st/6e852149e4c77a2ad3d653802957e029-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/786667b62237903c52c5754ec6851ad2-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/9525086d33ff46829498e390cf878e83-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/a0a2bff6664aa65c1aa7f5c9c5c8fe3d-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/a2495f245f31e598b08b24eea9eeb2b4-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/ab68b1b4926e2d5b71bd154d34abc676-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/c6715b54cadec605d342f01ca54ba8c8-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/dbfcd8053105ce12fbc87174ae884dd7-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/f0266835e00446145203e0ff7eab7804-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/fbab6d8696f1000c929ac6812a83fd85-uncropped_scaled_within_1536_1152.webp","images/1613-hampton-st/fd025492407cfcc50b41d498ec3d1ea0-uncropped_scaled_within_1536_1152.webp"]
   }
 ];
 const cards=document.getElementById("cards"),count=document.getElementById("count"),empty=document.getElementById("empty"),dlg=document.getElementById("detail");
