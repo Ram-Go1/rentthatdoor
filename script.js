@@ -102,13 +102,36 @@ function activateGalleries(root=document){
   el.addEventListener("keydown",e=>{if(e.key==="ArrowRight")show(index+1);if(e.key==="ArrowLeft")show(index-1)});
  });
 }
+let rentalMap=null,rentalMarkers=[];
+function updatePriceMap(found){
+ const node=document.getElementById("resultsMap");if(!node||!window.L)return;
+ if(!rentalMap){
+  rentalMap=L.map(node,{scrollWheelZoom:false}).setView([36.18,-86.79],12);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(rentalMap);
+ }
+ rentalMarkers.forEach(marker=>rentalMap.removeLayer(marker));rentalMarkers=[];
+ const grouped=new Map();
+ found.forEach(p=>{const key=p.address.replace(/, Unit \d+/i,"");if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(p)});
+ grouped.forEach((homes,address)=>{
+  fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+encodeURIComponent(address))
+   .then(r=>r.ok?r.json():[]).then(loc=>{
+    if(!loc.length)return;
+    const point=[Number(loc[0].lat),Number(loc[0].lon)];
+    const label=homes.length>1?money(homes[0].rent)+" · "+homes.length+" homes":money(homes[0].rent);
+    const marker=L.marker(point,{icon:L.divIcon({className:"rental-price-icon",html:'<span>'+label+'</span>',iconSize:[130,42],iconAnchor:[65,42]})}).addTo(rentalMap);
+    marker.bindPopup('<strong>'+homes.map(p=>p.title).join(" & ")+'</strong><p>'+label+'/mo</p><a href="#cards">View listings</a>');
+    marker.on("click",()=>{const card=document.querySelector('[data-id="'+homes[0].id+'"]');if(card)card.closest(".property").classList.add("map-selected")});
+    rentalMarkers.push(marker);rentalMap.setView(point,15);
+   }).catch(()=>{});
+ });
+}
 function render(){
  const term=document.getElementById("search").value.toLowerCase().trim(),type=document.getElementById("type").value,status=document.getElementById("status").value;
  const found=listings.filter(p=>(!term||[p.title,p.city,p.address,p.type].join(" ").toLowerCase().includes(term))&&(type==="all"||p.type===type)&&(status==="all"||p.status===status));
  count.textContent=found.length+" propert"+(found.length===1?"y":"ies");empty.hidden=found.length!==0;
  cards.innerHTML=found.map(p=>`<article class="property"><div class="property-photo">${gallery(p)}<span class="tag">${p.status}</span></div><div class="property-info"><span class="property-type">${p.type} · ${p.city}</span><h3>${p.title}</h3><div class="address">⌖ ${p.address}</div><div class="facts"><span>${p.beds} beds · ${p.baths} baths · ${p.sqft.toLocaleString()} sq ft</span><span>${p.garage}</span></div><div class="property-bottom"><span class="price">${p.rent?money(p.rent)+"/mo":p.status==="Rented"?"Rented":"Rent on request"}</span></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
  activateGalleries(cards);
- const resultsMap=document.getElementById("resultsMap");if(resultsMap&&found.length){const address=found[0].address;const next=mapEmbed(found[0]);if(resultsMap.getAttribute("src")!==next)resultsMap.setAttribute("src",next)}
+ updatePriceMap(found);
  cards.querySelectorAll("[data-id]").forEach(b=>b.addEventListener("click",()=>details(Number(b.dataset.id))));
 }
 function details(id){
