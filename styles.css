@@ -506,3 +506,39 @@ html,body,body *,button,input,select,textarea,option{
  .search-panel.rental-filters .search-field select{font-size:11px!important;padding-right:8px!important}
  .listing-card .listing-price{font-size:18px!important}
 }
+
+
+/* Approved visual reference: horizontal listings with right-hand map */
+body{background:#fffdfb!important;color:#702119!important}
+.header{border-bottom:1px solid #f0dfd1!important;box-shadow:0 2px 14px #a64a1210!important}
+.header nav a{font-size:15px!important}
+.search-wrap{max-width:1800px!important;padding:26px clamp(20px,2.5vw,46px) 70px!important}
+.section-head{margin:0 0 10px!important}
+.section-head .overline{color:#bd4615!important}
+.search-panel.rental-filters{margin:0 0 22px!important;background:#fff4e7!important;border:0!important;padding:17px!important;border-radius:0!important;box-shadow:0 0 0 100vmax #fff4e7!important;clip-path:inset(0 -100vmax)!important}
+.demo-notice{font-size:11px!important;padding:8px 12px!important;margin:0 0 17px!important;background:#fffaf5!important}
+.results-layout{display:grid!important;grid-template-columns:minmax(0,1.48fr) minmax(350px,1fr)!important;align-items:start!important;gap:26px!important}
+.results-list{width:auto!important;min-width:0!important;order:0!important}
+.results-list .cards{display:flex!important;flex-direction:column!important;gap:14px!important;margin-top:0!important}
+.results-list .listing-card{display:grid!important;grid-template-columns:minmax(145px,31%) minmax(0,1fr) auto!important;align-items:center!important;gap:18px!important;min-height:166px!important;padding:12px!important;background:#fffdfb!important;border:1px solid #ecd8c8!important;border-radius:12px!important;box-shadow:none!important;overflow:hidden!important}
+.results-list .listing-card .property-photo{height:140px!important;min-height:140px!important;border-radius:9px!important;overflow:hidden!important;align-self:stretch!important}
+.results-list .listing-card .property-info{padding:0!important;min-width:0!important;align-self:center!important}
+.results-list .listing-card .listing-address{font-size:clamp(16px,1.45vw,22px)!important;font-weight:400!important;color:#801e14!important;line-height:1.25!important;margin-bottom:12px!important}
+.results-list .listing-card .listing-stats{display:flex!important;gap:0!important;flex-wrap:wrap!important;margin:0!important;padding:0!important;border:0!important;color:#5e504a!important}
+.results-list .listing-card .listing-stats>span{font-size:13px!important;padding:0 10px!important;border-right:1px solid #dcc4b5!important;white-space:nowrap!important}
+.results-list .listing-card .listing-stats>span:first-child{padding-left:0!important}
+.results-list .listing-card .listing-stats>span:last-child{border:0!important}
+.results-list .listing-card .listing-availability{display:inline-flex!important;font-size:10px!important;padding:0!important;margin-top:13px!important;background:transparent!important;color:#815b48!important}
+.results-list .listing-card .listing-actions{margin-top:6px!important;padding:0!important;display:block!important}
+.results-list .listing-card .view{font-size:11px!important;color:#c64b12!important;background:transparent!important;border:0!important;padding:2px 0!important;box-shadow:none!important;text-decoration:underline!important}
+.results-list .listing-card>.listing-price{align-self:center!important;justify-self:end!important;text-align:right!important;font-size:clamp(17px,1.4vw,22px)!important;font-weight:400!important;color:#831c15!important;white-space:nowrap!important;padding-right:5px!important}
+.results-list .listing-card>.listing-price small{font-size:12px!important;font-weight:400!important}
+.results-map{width:auto!important;order:0!important;position:sticky!important;top:15px!important;border:0!important;border-radius:12px!important;overflow:hidden!important;box-shadow:none!important;background:#fff!important}
+.results-map .map-heading{padding:0 0 12px!important}
+.results-map .map-heading strong{font-size:17px!important;color:#822019!important}
+.results-map #resultsMap{height:540px!important;border-radius:12px!important;overflow:hidden!important}
+.results-map .map-footer{padding:10px 2px!important}
+.rental-price-icon span{background:#fff!important;color:#702119!important;border:1px solid #e7cbb6!important;border-radius:7px!important;box-shadow:0 3px 9px #0002!important;font-family:"Times New Roman",Times,serif!important;font-size:12px!important;font-weight:400!important;min-width:0!important}
+@media(max-width:1100px){.results-layout{grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr)!important;gap:16px!important}.results-list .listing-card{grid-template-columns:34% minmax(0,1fr)!important;gap:12px!important}.results-list .listing-card>.listing-price{grid-column:2!important;justify-self:start!important;margin-top:-10px!important}.results-list .listing-card .property-photo{grid-row:1 / span 2!important;height:160px!important}}
+@media(max-width:760px){.results-layout{display:flex!important;flex-direction:column!important}.results-list,.results-map{width:100%!important}.results-map{position:static!important}.results-map #resultsMap{height:340px!important}.results-list .listing-card{grid-template-columns:34% minmax(0,1fr)!important;min-height:140px!important}.results-list .listing-card .property-photo{height:140px!important;min-height:140px!important}.search-panel.rental-filters{grid-template-columns:repeat(3,minmax(0,1fr))!important;padding:10px!important}.search-panel.rental-filters .location-search{grid-column:1/-1!important}.search-panel.rental-filters .btn{grid-column:1/-1!important}}
+@media(max-width:430px){.results-list .listing-card{gap:10px!important;padding:8px!important}.results-list .listing-card .property-photo{height:140px!important;min-height:140px!important}.results-list .listing-card .listing-address{font-size:15px!important}.results-list .listing-card .listing-stats>span{font-size:11px!important;padding:0 5px!important}.results-list .listing-card>.listing-price{font-size:16px!important}.results-list .listing-card .listing-availability{font-size:9px!important}}
