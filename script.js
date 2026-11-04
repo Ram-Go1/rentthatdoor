@@ -96,33 +96,62 @@ function activateGalleries(root=document){
   el.addEventListener("keydown",e=>{if(e.key==="ArrowRight")show(index+1);if(e.key==="ArrowLeft")show(index-1)});
  });
 }
-let rentalMap=null,rentalMarkers=[];
+let rentalMap=null,rentalMarkers=[],mapReady=false,mapMovedByUser=false,mapGeocodes=new Map(),mapGeocoding=new Map(),mapSyncToken=0;
+const locationKey=p=>p.address.replace(/, Unit\\s*\\d+/i,"");
+async function resolveLocation(address){
+ if(mapGeocodes.has(address))return mapGeocodes.get(address);
+ if(mapGeocoding.has(address))return mapGeocoding.get(address);
+ const task=fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+encodeURIComponent(address))
+  .then(r=>r.ok?r.json():[]).then(loc=>{
+   const point=loc.length?[Number(loc[0].lat),Number(loc[0].lon)]:null;
+   if(point&&point.every(Number.isFinite))mapGeocodes.set(address,point);
+   return point;
+  }).catch(()=>null).finally(()=>mapGeocoding.delete(address));
+ mapGeocoding.set(address,task);return task;
+}
+function mapVisible(p){
+ if(!mapMovedByUser||!rentalMap)return true;
+ const point=mapGeocodes.get(locationKey(p));
+ return !point||rentalMap.getBounds().contains(point);
+}
 function updatePriceMap(found){
  const node=document.getElementById("resultsMap");if(!node||!window.L)return;
  if(!rentalMap){
   rentalMap=L.map(node,{scrollWheelZoom:false}).setView([36.18,-86.79],12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(rentalMap);
+  rentalMap.on("movestart",e=>{if(e.originalEvent)mapMovedByUser=true});
+  rentalMap.on("moveend",()=>{if(mapMovedByUser)render()});
  }
+ const token=++mapSyncToken;
  rentalMarkers.forEach(marker=>rentalMap.removeLayer(marker));rentalMarkers=[];
  const grouped=new Map();
- found.forEach(p=>{const key=p.address.replace(/, Unit \d+/i,"");if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(p)});
- grouped.forEach((homes,address)=>{
-  fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+encodeURIComponent(address))
-   .then(r=>r.ok?r.json():[]).then(loc=>{
-    if(!loc.length)return;
-    const point=[Number(loc[0].lat),Number(loc[0].lon)];
-    const label=homes.length>1?money(homes[0].rent)+" · "+homes.length+" homes":money(homes[0].rent);
-    const marker=L.marker(point,{icon:L.divIcon({className:"rental-price-icon",html:'<span>'+label+'</span>',iconSize:[130,42],iconAnchor:[65,42]})}).addTo(rentalMap);
-    marker.bindPopup('<strong>'+homes.map(p=>p.title).join(" & ")+'</strong><p>'+label+'/mo</p><a href="#cards">View listings</a>');
-    marker.on("click",()=>{const card=document.querySelector('[data-id="'+homes[0].id+'"]');if(card)card.closest(".property").classList.add("map-selected")});
-    rentalMarkers.push(marker);rentalMap.setView(point,15);
-   }).catch(()=>{});
+ found.forEach(p=>{const key=locationKey(p);if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(p)});
+ Promise.all([...grouped].map(async ([address,homes])=>({address,homes,point:await resolveLocation(address)}))).then(groups=>{
+  if(token!==mapSyncToken)return;
+  const points=[];
+  groups.forEach(({homes,point})=>{
+   if(!point)return;points.push(point);
+   const label=homes.length>1?money(homes[0].rent)+" · "+homes.length+" homes":money(homes[0].rent);
+   const marker=L.marker(point,{icon:L.divIcon({className:"rental-price-icon",html:'<span>'+label+'</span>',iconSize:[130,42],iconAnchor:[65,42]})}).addTo(rentalMap);
+   marker.bindPopup('<strong>'+homes.map(p=>p.title).join(" & ")+'</strong><p>'+label+'/mo</p><a href="#cards">View listings</a>');
+   marker.on("click",()=>{
+    const card=document.querySelector('[data-id="'+homes[0].id+'"]');
+    if(card){card.closest(".property").classList.add("map-selected");card.closest(".property").scrollIntoView({behavior:"smooth",block:"nearest"})}
+   });
+   rentalMarkers.push(marker);
+  });
+  if(!mapReady&&points.length){
+   mapReady=true;
+   if(points.length===1)rentalMap.setView(points[0],14);
+   else rentalMap.fitBounds(L.latLngBounds(points).pad(.25));
+  }
+  if(mapMovedByUser)renderCardsOnly();
  });
 }
 function render(){
  const term=document.getElementById("search").value.toLowerCase().trim(),type=document.getElementById("type").value,status=document.getElementById("status").value;
  const found=listings.filter(p=>(!term||[p.title,p.city,p.address,p.type].join(" ").toLowerCase().includes(term))&&(type==="all"||p.type===type)&&(status==="all"||p.status===status));
- count.textContent=found.length+" propert"+(found.length===1?"y":"ies");empty.hidden=found.length!==0;
+ updatePriceMap(found);\n renderCardsOnly(found);\n}\nfunction renderCardsOnly(preFiltered){\n const term=document.getElementById("search").value.toLowerCase().trim(),type=document.getElementById("type").value,status=document.getElementById("status").value;\n const found=(preFiltered||listings.filter(p=>(!term||[p.title,p.city,p.address,p.type].join(" ").toLowerCase().includes(term))&&(type==="all"||p.type===type)&&(status==="all"||p.status===status))).filter(mapVisible);\n count.textContent=found.length+" propert"+(found.length===1?"y":"ies");empty.hidden=found.length!==0;
  cards.innerHTML=found.map(p=>`<article class="property listing-card"><div class="property-photo">${gallery(p)}</div><div class="property-info"><div class="listing-price-row"><div class="listing-price">${money(p.rent)}<small>/mo</small></div><span class="listing-availability"><span class="availability-dot"></span>${p.availableDate?"Available "+new Date(p.availableDate+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):p.status}</span></div><div class="listing-address">${p.address}</div><div class="listing-chips"><span>Washer &amp; dryer</span><span>Dishwasher</span><span>Ceiling fan</span><span>Rooftop downtown view</span></div><div class="listing-divider"></div><div class="listing-stats"><div><span class="stat-icon" aria-hidden="true">🛏️</span><strong>${p.beds}</strong><span>Bedrooms</span></div><div><span class="stat-icon" aria-hidden="true">🛁</span><strong>${p.baths}</strong><span>Bathrooms</span></div><div><span class="stat-icon">↔</span><strong>${p.sqft.toLocaleString()}</strong><span>Square feet</span></div></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
  activateGalleries(cards);
  updatePriceMap(found);
