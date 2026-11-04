@@ -157,3 +157,36 @@ dialog{max-height:90vh;overflow:auto}
 .results-list .listing-card .photo-slider{min-height:0}
 .results-list .listing-card .photo-slider button{width:30px;height:30px;font-size:23px}
 @media(max-width:600px){.results-list .listing-card .property-photo{height:160px}.results-list .listing-card .property-info{padding:14px}.results-list .listing-card .listing-price{font-size:24px}}
+
+
+/* Two compact rental cards side-by-side, with map to the right */
+@media(min-width:1100px){
+ .search-wrap{max-width:1600px;padding-left:24px;padding-right:24px}
+ .results-layout{grid-template-columns:minmax(0,1.45fr) minmax(320px,.85fr);gap:18px}
+ .results-list .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+ .results-list .listing-card .property-photo{height:155px}
+ .results-list .listing-card .property-info{padding:13px}
+ .results-list .listing-card .listing-price{font-size:23px}
+ .results-list .listing-card .listing-price small{font-size:12px}
+ .results-list .listing-card .listing-availability{font-size:10px;padding:6px 8px;gap:6px}
+ .results-list .listing-card .listing-address{font-size:12px;margin-top:10px}
+ .results-list .listing-card .listing-chips{margin-top:9px}
+ .results-list .listing-card .listing-chips span{font-size:10px;padding:5px 6px}
+ .results-list .listing-card .listing-stats strong{font-size:14px}
+ .results-list .listing-card .listing-stats .stat-icon{font-size:17px}
+ .results-list .listing-card .listing-stats>div>span:last-child{font-size:10px}
+ .results-list .listing-card .listing-actions{gap:6px}
+ .results-list .listing-card .listing-actions .view,.results-list .listing-card .listing-actions .map-link{padding:9px 8px;font-size:11px}
+}
+@media(min-width:850px) and (max-width:1099px){
+ .results-layout{grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr)}
+ .results-list .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .results-list .listing-card .property-photo{height:125px}
+ .results-list .listing-card .property-info{padding:10px}
+ .results-list .listing-card .listing-price{font-size:19px}
+ .results-list .listing-card .listing-availability{font-size:10px;padding:5px}
+ .results-list .listing-card .listing-address{font-size:11px}
+ .results-list .listing-card .listing-chips span{font-size:9px}
+ .results-list .listing-card .listing-actions{gap:5px}
+ .results-list .listing-card .listing-actions .view,.results-list .listing-card .listing-actions .map-link{font-size:10px;padding:8px 5px}
+}
