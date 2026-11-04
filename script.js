@@ -6,15 +6,39 @@ const listings=[
     "type": "Townhome",
     "city": "Nashville, TN",
     "address": "496 W Trinity Ln, Unit 5, Nashville, TN",
-    "beds": null,
-    "baths": null,
-    "sqft": null,
+    "beds": 4,
+    "baths": 4,
+    "sqft": 1900,
     "rent": 2800,
     "status": "Available",
     "image": null,
-    "description": "West Trinity Lane townhome available November 15, 2026. Monthly rent is $2,800 with a minimum 12-month lease. Contact us for floor plan details.",
+    "description": "4 bedrooms, 4 bathrooms, approximately 1,900 sq ft and a 2-car garage. Approximately 15 minutes to downtown Nashville depending on traffic. Available November 15, 2026. $2,800/month, minimum 12-month lease.",
     "availableDate": "2026-11-15",
-    "leaseTerm": "Minimum 12-month lease"
+    "leaseTerm": "Minimum 12-month lease",
+    "garage": "2-car garage",
+    "driveTime": "Approximately 15 minutes to downtown Nashville, depending on traffic",
+    "photos": [
+      "images/trinity-townhomes/01.webp",
+      "images/trinity-townhomes/02.webp",
+      "images/trinity-townhomes/03.webp",
+      "images/trinity-townhomes/04.webp",
+      "images/trinity-townhomes/05.webp",
+      "images/trinity-townhomes/06.webp",
+      "images/trinity-townhomes/07.webp",
+      "images/trinity-townhomes/08.webp",
+      "images/trinity-townhomes/09.webp",
+      "images/trinity-townhomes/10.webp",
+      "images/trinity-townhomes/11.webp",
+      "images/trinity-townhomes/12.webp",
+      "images/trinity-townhomes/13.webp",
+      "images/trinity-townhomes/14.webp",
+      "images/trinity-townhomes/15.webp",
+      "images/trinity-townhomes/16.webp",
+      "images/trinity-townhomes/17.webp",
+      "images/trinity-townhomes/18.webp",
+      "images/trinity-townhomes/19.webp",
+      "images/trinity-townhomes/20.webp"
+    ]
   },
   {
     "id": 8,
@@ -22,15 +46,39 @@ const listings=[
     "type": "Townhome",
     "city": "Nashville, TN",
     "address": "496 W Trinity Ln, Unit 7, Nashville, TN",
-    "beds": null,
-    "baths": null,
-    "sqft": null,
+    "beds": 4,
+    "baths": 4,
+    "sqft": 1900,
     "rent": 2800,
     "status": "Available",
     "image": null,
-    "description": "West Trinity Lane townhome available November 15, 2026. Monthly rent is $2,800 with a minimum 12-month lease. Contact us for floor plan details.",
+    "description": "4 bedrooms, 4 bathrooms, approximately 1,900 sq ft and a 2-car garage. Approximately 15 minutes to downtown Nashville depending on traffic. Available November 15, 2026. $2,800/month, minimum 12-month lease.",
     "availableDate": "2026-11-15",
-    "leaseTerm": "Minimum 12-month lease"
+    "leaseTerm": "Minimum 12-month lease",
+    "garage": "2-car garage",
+    "driveTime": "Approximately 15 minutes to downtown Nashville, depending on traffic",
+    "photos": [
+      "images/trinity-townhomes/01.webp",
+      "images/trinity-townhomes/02.webp",
+      "images/trinity-townhomes/03.webp",
+      "images/trinity-townhomes/04.webp",
+      "images/trinity-townhomes/05.webp",
+      "images/trinity-townhomes/06.webp",
+      "images/trinity-townhomes/07.webp",
+      "images/trinity-townhomes/08.webp",
+      "images/trinity-townhomes/09.webp",
+      "images/trinity-townhomes/10.webp",
+      "images/trinity-townhomes/11.webp",
+      "images/trinity-townhomes/12.webp",
+      "images/trinity-townhomes/13.webp",
+      "images/trinity-townhomes/14.webp",
+      "images/trinity-townhomes/15.webp",
+      "images/trinity-townhomes/16.webp",
+      "images/trinity-townhomes/17.webp",
+      "images/trinity-townhomes/18.webp",
+      "images/trinity-townhomes/19.webp",
+      "images/trinity-townhomes/20.webp"
+    ]
   }
 ];
 const cards=document.getElementById("cards"),count=document.getElementById("count"),empty=document.getElementById("empty"),dlg=document.getElementById("detail");
@@ -42,12 +90,12 @@ function render(){
  const term=document.getElementById("search").value.toLowerCase().trim(),type=document.getElementById("type").value,status=document.getElementById("status").value;
  const found=listings.filter(p=>(!term||[p.title,p.city,p.address,p.type].join(" ").toLowerCase().includes(term))&&(type==="all"||p.type===type)&&(status==="all"||p.status===status));
  count.textContent=found.length+" propert"+(found.length===1?"y":"ies");empty.hidden=found.length!==0;
- cards.innerHTML=found.map(p=>`<article class="property"><div class="property-photo">${photo(p)}<span class="tag">${p.status}</span></div><div class="property-info"><span class="property-type">${p.type} · ${p.city}</span><h3>${p.title}</h3><div class="address">⌖ ${p.address}</div><div class="facts"><span>${p.leaseTerm||"Floor plan: inquire"}</span><span>${p.availableDate?"Available Nov 15, 2026":p.status}</span></div><div class="property-bottom"><span class="price">${p.rent?money(p.rent)+"/mo":p.status==="Rented"?"Rented":"Rent on request"}</span></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
+ cards.innerHTML=found.map(p=>`<article class="property"><div class="property-photo">${photo(p)}<span class="tag">${p.status}</span></div><div class="property-info"><span class="property-type">${p.type} · ${p.city}</span><h3>${p.title}</h3><div class="address">⌖ ${p.address}</div><div class="facts"><span>${p.beds} beds · ${p.baths} baths · ${p.sqft.toLocaleString()} sq ft</span><span>${p.garage}</span></div><div class="property-bottom"><span class="price">${p.rent?money(p.rent)+"/mo":p.status==="Rented"?"Rented":"Rent on request"}</span></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
  cards.querySelectorAll("[data-id]").forEach(b=>b.addEventListener("click",()=>details(Number(b.dataset.id))));
 }
 function details(id){
  const p=listings.find(x=>x.id===id);
- document.getElementById("detailBody").innerHTML=`<div class="detail-image">${photo(p)}</div><div class="detail-copy"><span class="overline">RENTTHATDOOR · PROPERTY DETAILS</span><h2>${p.title}</h2><div class="detail-status">${p.availableDate?"Available November 15, 2026":p.status}</div><p>${p.address}</p><p class="detail-price">${p.rent?money(p.rent)+"/month":p.status==="Rented"?"Currently rented":"Contact for pricing"}</p><p>${p.description}</p>${p.leaseTerm?`<p><strong>Lease term:</strong> ${p.leaseTerm}</p>`:""}<h3>Location</h3><iframe class="property-map" loading="lazy" title="Map of ${p.address}" src="${mapEmbed(p)}" referrerpolicy="no-referrer-when-downgrade"></iframe><a class="map-link detail-map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">Open larger map ↗</a><a class="btn btn-dark" href="#contact" id="detailContact">Ask about this home ↗</a></div>`;
+ document.getElementById("detailBody").innerHTML=`<div class="detail-image">${photo(p)}</div><div class="detail-copy"><span class="overline">RENTTHATDOOR · PROPERTY DETAILS</span><h2>${p.title}</h2><div class="detail-status">${p.availableDate?"Available November 15, 2026":p.status}</div><p>${p.address}</p><p class="detail-price">${p.rent?money(p.rent)+"/month":p.status==="Rented"?"Currently rented":"Contact for pricing"}</p><p>${p.description}</p><p><strong>Features:</strong> ${p.beds} bedrooms · ${p.baths} bathrooms · ${p.sqft.toLocaleString()} sq ft · ${p.garage}</p>${p.leaseTerm?`<p><strong>Lease term:</strong> ${p.leaseTerm}</p>`:""}<h3>Location</h3><iframe class="property-map" loading="lazy" title="Map of ${p.address}" src="${mapEmbed(p)}" referrerpolicy="no-referrer-when-downgrade"></iframe><a class="map-link detail-map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">Open larger map ↗</a><a class="btn btn-dark" href="#contact" id="detailContact">Ask about this home ↗</a></div>`;
  dlg.showModal();document.getElementById("detailContact").addEventListener("click",()=>{dlg.close();document.querySelector('[name="message"]').value="I would like more information about "+p.address+"."});
 }
 document.getElementById("close").onclick=()=>dlg.close();
