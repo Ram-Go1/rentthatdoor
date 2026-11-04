@@ -366,3 +366,9 @@ img,iframe{max-width:100%}
 }
 .header .brand-tagline{font-family:"DM Sans",sans-serif!important;font-style:normal!important;font-weight:400!important;letter-spacing:.15px!important}
 @media(max-width:600px){.header .brand-name{font-size:21px!important}}
+
+
+/* Align tagline closely beneath the leaning logo, shifted slightly left */
+.header .brand-lockup{align-items:flex-start!important;gap:0!important}
+.header .brand-tagline{margin-left:-5px!important;margin-top:1px!important;font-family:"Playfair Display",Georgia,serif!important;font-style:italic!important;font-weight:400!important;letter-spacing:.05px!important;transform:skewX(-3deg);transform-origin:left center}
+@media(max-width:600px){.header .brand-tagline{margin-left:-3px!important}}
