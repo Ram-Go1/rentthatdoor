@@ -76,3 +76,8 @@ dialog{max-height:90vh;overflow:auto}
 .brand-tagline{display:block;font-family:"DM Sans",sans-serif;font-size:10px;font-weight:600;letter-spacing:.015em;color:#65776d;white-space:nowrap;line-height:1.3}
 .header .brand{display:inline-flex;align-items:center;gap:10px}
 @media(max-width:560px){.brand-tagline{font-size:8px;letter-spacing:-.1px}.header .brand{gap:6px}.brand-name{font-size:20px}}
+
+/* Elegant editorial typography for the brand tagline */
+.header .brand-lockup{gap:4px}
+.header .brand-tagline{font-family:"Playfair Display",Georgia,serif;font-size:12px;font-weight:500;font-style:italic;letter-spacing:.015em;line-height:1.2;color:#987346;text-transform:none;white-space:nowrap}
+@media(max-width:560px){.header .brand-tagline{font-size:9px;letter-spacing:0}}
