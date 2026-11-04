@@ -163,12 +163,13 @@ function updatePriceMap(found){
  });
 }
 function filteredListings(){
+ const term=document.getElementById("search").value.toLowerCase().trim();
  const range=document.getElementById("rentRange").value;
  const minBeds=document.getElementById("beds").value;
  const minBaths=document.getElementById("baths").value;
  return listings.filter(p=>{
   const [min,max]=range==="all"?[0,Infinity]:range.split("-").map(Number);
-  return p.rent>=min&&p.rent<=max&&(minBeds==="all"||p.beds>=Number(minBeds))&&(minBaths==="all"||p.baths>=Number(minBaths));
+  return (!term||[p.title,p.city,p.address,p.type].join(" ").toLowerCase().includes(term))&&p.rent>=min&&p.rent<=max&&(minBeds==="all"||p.beds>=Number(minBeds))&&(minBaths==="all"||p.baths>=Number(minBaths));
  });
 }
 function render(){
@@ -191,6 +192,7 @@ function details(id){
 document.getElementById("close").onclick=()=>dlg.close();
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
 ["rentRange","beds","baths"].forEach(id=>document.getElementById(id).addEventListener("change",render));
+document.getElementById("search").addEventListener("input",render);
 document.getElementById("filter").onclick=render;
 document.getElementById("year").textContent=new Date().getFullYear();
 document.getElementById("menu").onclick=()=>document.querySelector(".header nav").classList.toggle("open");
