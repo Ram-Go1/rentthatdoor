@@ -186,7 +186,7 @@ function renderCardsOnly(preFiltered){
 function details(id){
  const p=listings.find(x=>x.id===id);
  document.getElementById("detailBody").innerHTML=`<div class="detail-image">${gallery(p)}</div><div class="detail-copy"><span class="overline">RENTTHATDOOR · PROPERTY DETAILS</span><h2>${p.title}</h2><div class="detail-status">${p.availableDate?"Available November 15, 2026":p.status}</div><p>${p.address}</p><p class="detail-price">${p.rent?money(p.rent)+"/month":p.status==="Rented"?"Currently rented":"Contact for pricing"}</p><p>${p.description}</p><p><strong>Features:</strong> ${p.beds} bedrooms · ${p.baths} bathrooms · ${p.sqft.toLocaleString()} sq ft · ${p.garage} · Washer &amp; dryer · Dishwasher · Ceiling fan · Rooftop downtown view</p>${p.leaseTerm?`<p><strong>Lease term:</strong> ${p.leaseTerm}</p>`:""}<h3>Location</h3><iframe class="property-map" loading="lazy" title="Map of ${p.address}" src="${mapEmbed(p)}" referrerpolicy="no-referrer-when-downgrade"></iframe><a class="map-link detail-map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">Open larger map ↗</a><a class="btn btn-dark" href="#contact" id="detailContact">Ask about this home ↗</a></div>`;
- dlg.showModal();activateGalleries(document.getElementById("detailBody"));document.getElementById("detailContact").addEventListener("click",()=>{dlg.close();document.querySelector('[name="message"]').value="I would like more information about "+p.address+"."});
+ dlg.showModal();activateGalleries(document.getElementById("detailBody"));document.getElementById("detailContact").addEventListener("click",()=>{dlg.close();window.location.href="info.html#contact"});
 }
 document.getElementById("close").onclick=()=>dlg.close();
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
@@ -195,5 +195,5 @@ document.getElementById("filter").onclick=render;
 document.getElementById("year").textContent=new Date().getFullYear();
 document.getElementById("menu").onclick=()=>document.querySelector(".header nav").classList.toggle("open");
 document.querySelectorAll(".header nav a").forEach(a=>a.addEventListener("click",()=>document.querySelector(".header nav").classList.remove("open")));
-document.getElementById("contactForm").addEventListener("submit",e=>{e.preventDefault();const d=new FormData(e.target);const body=["Name: "+d.get("name"),"Email: "+d.get("email"),"Topic: "+d.get("topic"),"",d.get("message")].join("\\n");window.location.href="mailto:?subject="+encodeURIComponent("RentThatDoor: "+d.get("topic"))+"&body="+encodeURIComponent(body);alert("Your email app will open with a prepared message. Add the RentThatDoor contact email as the recipient before sending.")});
+
 render();
