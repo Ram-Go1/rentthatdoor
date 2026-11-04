@@ -178,8 +178,11 @@ function render(){
  renderCardsOnly(found);
 }
 function renderCardsOnly(preFiltered){
- const found=(preFiltered||filteredListings()).filter(mapVisible);
- count.textContent=found.length+" propert"+(found.length===1?"y":"ies");empty.hidden=found.length!==0;
+ const found=(preFiltered||filteredListings()).filter(mapVisible).slice();
+ const sort=document.getElementById("sort")?.value||"newest";
+ if(sort==="rent-low")found.sort((a,b)=>a.rent-b.rent);
+ if(sort==="rent-high")found.sort((a,b)=>b.rent-a.rent);
+ count.textContent=found.length+" Rental"+(found.length===1?"":"s");empty.hidden=found.length!==0;
  cards.innerHTML=found.map(p=>`<article class="property listing-card"><div class="property-photo">${gallery(p)}</div><div class="property-info"><div class="listing-address">${p.address}</div><div class="listing-stats"><span>${p.beds} Bed</span><span>${p.baths} Bath</span><span>${p.sqft.toLocaleString()} Sq Ft</span></div><div class="listing-availability"><span class="availability-dot"></span>${p.availableDate?"Available "+new Date(p.availableDate+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):p.status}</div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button></div></div><div class="listing-price">${money(p.rent)}<small>/mo</small></div></article>`).join(""));
  activateGalleries(cards);
  cards.querySelectorAll("[data-id]").forEach(b=>b.addEventListener("click",()=>details(Number(b.dataset.id))));
@@ -219,6 +222,7 @@ locationInput.addEventListener("keydown",e=>{
 });
 locationInput.addEventListener("blur",()=>{setTimeout(()=>locationSuggestions.hidden=true,150);});
 document.getElementById("filter").onclick=render;
+document.getElementById("sort")?.addEventListener("change",render);
 document.getElementById("year").textContent=new Date().getFullYear();
 document.getElementById("menu").onclick=()=>document.querySelector(".header nav").classList.toggle("open");
 document.querySelectorAll(".header nav a").forEach(a=>a.addEventListener("click",()=>document.querySelector(".header nav").classList.remove("open")));
