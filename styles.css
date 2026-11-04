@@ -114,3 +114,28 @@ dialog{max-height:90vh;overflow:auto}
 .map-selected{outline:2px solid #b88b4e;outline-offset:3px}
 @media(max-width:850px){.results-map #resultsMap{height:350px}}
 @media(max-width:600px){.results-map #resultsMap{height:300px}}
+
+
+/* Rental listing cards inspired by the supplied reference */
+.results-list .listing-card{border:1px solid #e4e6e5;border-radius:12px;background:#fff;overflow:hidden;box-shadow:0 7px 24px #13283b12}
+.listing-card .property-photo{height:300px}
+.listing-card .property-info{padding:26px 27px 24px}
+.listing-price-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.listing-price{font:800 clamp(27px,3vw,36px)/1.2 Manrope,sans-serif;letter-spacing:-1.4px;color:#202f68}
+.listing-price small{font:600 17px 'DM Sans',sans-serif;letter-spacing:0}
+.listing-availability{display:inline-flex;align-items:center;gap:9px;padding:9px 12px;border:1px solid #e2e5e3;border-radius:10px;color:#25364b;font-size:13px;font-weight:700;background:#fff}
+.availability-dot{width:11px;height:11px;border-radius:50%;background:#35c98a;box-shadow:0 0 0 4px #dcf7e9;flex-shrink:0}
+.listing-address{font:800 17px/1.45 Manrope,sans-serif;color:#202f68;margin-top:22px}
+.listing-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:19px}
+.listing-chips span{border:1px solid #e3e5e6;border-radius:8px;padding:9px 10px;font-size:12px;color:#354252;background:#fff}
+.listing-divider{height:9px;background:#f0f0f0;margin:24px 0 22px}
+.listing-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));color:#202f68}
+.listing-stats>div{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:center;justify-content:center;padding:3px 10px;border-right:1px solid #e2e4e7}
+.listing-stats>div:first-child{padding-left:0}.listing-stats>div:last-child{border:0;padding-right:0}
+.listing-stats .stat-icon{font-size:25px;line-height:1}
+.listing-stats strong{font:800 19px Manrope,sans-serif}
+.listing-stats>div>span:last-child{grid-column:1/-1;text-align:center;font-size:12px;margin-top:7px}
+.listing-card .listing-actions{margin-top:25px}
+.listing-card .view{background:#202f68}
+.listing-card .photo-slider .slide-count{background:#202f68e6}
+@media(max-width:600px){.listing-card .property-photo{height:245px}.listing-card .property-info{padding:20px 17px}.listing-price{font-size:29px}.listing-availability{font-size:12px}.listing-address{font-size:15px}.listing-chips span{font-size:11px}.listing-stats>div{padding:3px 5px}.listing-stats strong{font-size:17px}.listing-stats .stat-icon{font-size:21px}.listing-stats>div>span:last-child{font-size:11px}}
