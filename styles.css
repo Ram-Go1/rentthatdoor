@@ -48,3 +48,24 @@ body{background:#faf9f6;color:#1b332b}
 input:focus,textarea:focus,select:focus,button:focus-visible,a:focus-visible{outline:2px solid #c08c4f;outline-offset:3px}
 @media(max-width:850px){.header{height:70px}.hero{min-height:570px}.faq{grid-template-columns:1fr;gap:20px;padding:75px 7%}.editorial{padding:85px 7%}}
 @media(max-width:600px){.hero{height:600px;min-height:600px}.hero-content{padding-top:85px}.hero h1{font-size:clamp(44px,12vw,60px);letter-spacing:-2.8px}.hero-proof{margin-top:35px}.editorial{padding:75px 7%}.editorial>p{letter-spacing:-1.6px}.faq{padding:70px 6%}.property-photo{height:240px}}
+
+/* Listing availability, rent and maps */
+.property-bottom{margin-top:18px}
+.listing-actions{display:flex;gap:10px;margin-top:15px}
+.listing-actions .view{flex:1;text-align:center}
+.map-link{display:inline-flex;align-items:center;justify-content:center;padding:12px 14px;border:1px solid #cad8cc;border-radius:4px;color:#234e3e;font-weight:800;font-size:12px;white-space:nowrap}
+.map-link:hover{background:#eef4ed}
+.listing-disclaimer{display:block;color:#8b918b;font-size:10px;margin-top:14px;line-height:1.5}
+.tag.status-available,.detail-status.status-available{background:#d9f0df;color:#176333}
+.tag.status-rented,.detail-status.status-rented{background:#e8e8e8;color:#4e5653}
+.tag.status-coming-soon,.detail-status.status-coming-soon{background:#ffebc7;color:#82540e}
+.detail-status{display:inline-block;font-size:12px;font-weight:800;border-radius:4px;padding:9px 13px;margin:10px 0}
+.detail-price{font-size:24px!important;font-weight:800;color:#244b3d!important}
+.detail-price small{font-size:12px;font-weight:500;color:#6b7770}
+.detail-copy h3{font-size:17px;margin:26px 0 8px}
+.map-caveat{font-size:12px!important}
+.property-map{display:block;width:100%;height:245px;border:0;border-radius:6px;background:#e8eee7}
+.detail-map-link{margin-top:13px}
+.detail-copy>.btn{display:flex;margin-top:18px}
+dialog{max-height:90vh;overflow:auto}
+@media(max-width:600px){.listing-actions{flex-wrap:wrap}.listing-actions .view{min-width:55%}}
