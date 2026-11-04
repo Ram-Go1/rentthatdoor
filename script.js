@@ -162,15 +162,22 @@ function updatePriceMap(found){
   if(mapMovedByUser)renderCardsOnly();
  });
 }
+function filteredListings(){
+ const range=document.getElementById("rentRange").value;
+ const minBeds=document.getElementById("beds").value;
+ const minBaths=document.getElementById("baths").value;
+ return listings.filter(p=>{
+  const [min,max]=range==="all"?[0,Infinity]:range.split("-").map(Number);
+  return p.rent>=min&&p.rent<=max&&(minBeds==="all"||p.beds>=Number(minBeds))&&(minBaths==="all"||p.baths>=Number(minBaths));
+ });
+}
 function render(){
- const term=document.getElementById("search").value.toLowerCase().trim(),type=document.getElementById("type").value,status=document.getElementById("status").value;
- const found=listings.filter(p=>(!term||[p.title,p.city,p.address,p.type].join(" ").toLowerCase().includes(term))&&(type==="all"||p.type===type)&&(status==="all"||p.status===status));
+ const found=filteredListings();
  updatePriceMap(found);
  renderCardsOnly(found);
 }
 function renderCardsOnly(preFiltered){
- const term=document.getElementById("search").value.toLowerCase().trim(),type=document.getElementById("type").value,status=document.getElementById("status").value;
- const found=(preFiltered||listings.filter(p=>(!term||[p.title,p.city,p.address,p.type].join(" ").toLowerCase().includes(term))&&(type==="all"||p.type===type)&&(status==="all"||p.status===status))).filter(mapVisible);
+ const found=(preFiltered||filteredListings()).filter(mapVisible);
  count.textContent=found.length+" propert"+(found.length===1?"y":"ies");empty.hidden=found.length!==0;
  cards.innerHTML=found.map(p=>`<article class="property listing-card"><div class="property-photo">${gallery(p)}</div><div class="property-info"><div class="listing-price-row"><div class="listing-price">${money(p.rent)}<small>/mo</small></div><span class="listing-availability"><span class="availability-dot"></span>${p.availableDate?"Available "+new Date(p.availableDate+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):p.status}</span></div><div class="listing-address">${p.address}</div><div class="listing-chips">${(p.amenities||["Washer & dryer","Dishwasher","Ceiling fan","Rooftop downtown view"]).map(a=>`<span>${a}</span>`).join("")}</div><div class="listing-divider"></div><div class="listing-stats"><div><span class="stat-icon" aria-hidden="true">🛏️</span><strong>${p.beds}</strong><span>Bedrooms</span></div><div><span class="stat-icon" aria-hidden="true">🛁</span><strong>${p.baths}</strong><span>Bathrooms</span></div><div><span class="stat-icon">↔</span><strong>${p.sqft.toLocaleString()}</strong><span>Square feet</span></div></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
  activateGalleries(cards);
@@ -183,7 +190,7 @@ function details(id){
 }
 document.getElementById("close").onclick=()=>dlg.close();
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
-["search","type","status"].forEach(id=>document.getElementById(id).addEventListener(id==="search"?"input":"change",render));
+["rentRange","beds","baths"].forEach(id=>document.getElementById(id).addEventListener("change",render));
 document.getElementById("filter").onclick=render;
 document.getElementById("year").textContent=new Date().getFullYear();
 document.getElementById("menu").onclick=()=>document.querySelector(".header nav").classList.toggle("open");
