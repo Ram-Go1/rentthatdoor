@@ -399,3 +399,9 @@ img,iframe{max-width:100%}
  line-height:1!important;
  letter-spacing:-2px!important;
 }
+
+
+/* Published diya logo: crisp at desktop and mobile sizes */
+.header .brand{display:inline-flex!important;align-items:center!important;min-width:0!important}
+.header .brand-image{display:block;width:clamp(220px,25vw,320px);height:auto;max-height:66px;object-fit:contain;object-position:left center}
+@media(max-width:600px){.header .brand-image{width:clamp(190px,53vw,250px);max-height:54px}}
