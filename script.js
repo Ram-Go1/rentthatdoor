@@ -1,4 +1,5 @@
-// Confirm property-level specifications and availability before publishing them.\nconst listings=[
+// Property listings and confirmed availability.
+const listings=[
   {
     "id": 1,
     "title": "500 W Trinity Ln",
