@@ -108,6 +108,7 @@ function render(){
  count.textContent=found.length+" propert"+(found.length===1?"y":"ies");empty.hidden=found.length!==0;
  cards.innerHTML=found.map(p=>`<article class="property"><div class="property-photo">${gallery(p)}<span class="tag">${p.status}</span></div><div class="property-info"><span class="property-type">${p.type} · ${p.city}</span><h3>${p.title}</h3><div class="address">⌖ ${p.address}</div><div class="facts"><span>${p.beds} beds · ${p.baths} baths · ${p.sqft.toLocaleString()} sq ft</span><span>${p.garage}</span></div><div class="property-bottom"><span class="price">${p.rent?money(p.rent)+"/mo":p.status==="Rented"?"Rented":"Rent on request"}</span></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
  activateGalleries(cards);
+ const resultsMap=document.getElementById("resultsMap");if(resultsMap&&found.length){const address=found[0].address;const next=mapEmbed(found[0]);if(resultsMap.getAttribute("src")!==next)resultsMap.setAttribute("src",next)}
  cards.querySelectorAll("[data-id]").forEach(b=>b.addEventListener("click",()=>details(Number(b.dataset.id))));
 }
 function details(id){
