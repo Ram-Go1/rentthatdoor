@@ -68,6 +68,25 @@ const listings=[
           "images/trinity-townhomes/unit-7/14.jpg",
           "images/trinity-townhomes/unit-7/15.jpg"
     ]
+  },
+  {
+    "id": 9,
+    "title": "1613 Hampton St",
+    "type": "Home",
+    "city": "Nashville, TN",
+    "address": "1613 Hampton St, Nashville, TN",
+    "beds": 3,
+    "baths": 2.5,
+    "sqft": 2065,
+    "rent": 2850,
+    "status": "Available",
+    "image": null,
+    "description": "3 bedrooms, 2.5 bathrooms, 2,065 sq ft, washer and dryer, dishwasher, 2-car garage and downtown views. Available now for $2,850/month.",
+    "availableDate": null,
+    "leaseTerm": "Contact for lease details",
+    "garage": "2-car garage",
+    "amenities": ["Washer & dryer","Dishwasher","2-car garage","Downtown views"],
+    "photos": []
   }
 ];
 const cards=document.getElementById("cards"),count=document.getElementById("count"),empty=document.getElementById("empty"),dlg=document.getElementById("detail");
@@ -153,7 +172,7 @@ function renderCardsOnly(preFiltered){
  const term=document.getElementById("search").value.toLowerCase().trim(),type=document.getElementById("type").value,status=document.getElementById("status").value;
  const found=(preFiltered||listings.filter(p=>(!term||[p.title,p.city,p.address,p.type].join(" ").toLowerCase().includes(term))&&(type==="all"||p.type===type)&&(status==="all"||p.status===status))).filter(mapVisible);
  count.textContent=found.length+" propert"+(found.length===1?"y":"ies");empty.hidden=found.length!==0;
- cards.innerHTML=found.map(p=>`<article class="property listing-card"><div class="property-photo">${gallery(p)}</div><div class="property-info"><div class="listing-price-row"><div class="listing-price">${money(p.rent)}<small>/mo</small></div><span class="listing-availability"><span class="availability-dot"></span>${p.availableDate?"Available "+new Date(p.availableDate+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):p.status}</span></div><div class="listing-address">${p.address}</div><div class="listing-chips"><span>Washer &amp; dryer</span><span>Dishwasher</span><span>Ceiling fan</span><span>Rooftop downtown view</span></div><div class="listing-divider"></div><div class="listing-stats"><div><span class="stat-icon" aria-hidden="true">🛏️</span><strong>${p.beds}</strong><span>Bedrooms</span></div><div><span class="stat-icon" aria-hidden="true">🛁</span><strong>${p.baths}</strong><span>Bathrooms</span></div><div><span class="stat-icon">↔</span><strong>${p.sqft.toLocaleString()}</strong><span>Square feet</span></div></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
+ cards.innerHTML=found.map(p=>`<article class="property listing-card"><div class="property-photo">${gallery(p)}</div><div class="property-info"><div class="listing-price-row"><div class="listing-price">${money(p.rent)}<small>/mo</small></div><span class="listing-availability"><span class="availability-dot"></span>${p.availableDate?"Available "+new Date(p.availableDate+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):p.status}</span></div><div class="listing-address">${p.address}</div><div class="listing-chips">${(p.amenities||["Washer & dryer","Dishwasher","Ceiling fan","Rooftop downtown view"]).map(a=>`<span>${a}</span>`).join("")}</div><div class="listing-divider"></div><div class="listing-stats"><div><span class="stat-icon" aria-hidden="true">🛏️</span><strong>${p.beds}</strong><span>Bedrooms</span></div><div><span class="stat-icon" aria-hidden="true">🛁</span><strong>${p.baths}</strong><span>Bathrooms</span></div><div><span class="stat-icon">↔</span><strong>${p.sqft.toLocaleString()}</strong><span>Square feet</span></div></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
  activateGalleries(cards);
  updatePriceMap(found);
  cards.querySelectorAll("[data-id]").forEach(b=>b.addEventListener("click",()=>details(Number(b.dataset.id))));
