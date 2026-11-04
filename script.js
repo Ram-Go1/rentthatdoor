@@ -174,7 +174,6 @@ function renderCardsOnly(preFiltered){
  count.textContent=found.length+" propert"+(found.length===1?"y":"ies");empty.hidden=found.length!==0;
  cards.innerHTML=found.map(p=>`<article class="property listing-card"><div class="property-photo">${gallery(p)}</div><div class="property-info"><div class="listing-price-row"><div class="listing-price">${money(p.rent)}<small>/mo</small></div><span class="listing-availability"><span class="availability-dot"></span>${p.availableDate?"Available "+new Date(p.availableDate+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):p.status}</span></div><div class="listing-address">${p.address}</div><div class="listing-chips">${(p.amenities||["Washer & dryer","Dishwasher","Ceiling fan","Rooftop downtown view"]).map(a=>`<span>${a}</span>`).join("")}</div><div class="listing-divider"></div><div class="listing-stats"><div><span class="stat-icon" aria-hidden="true">🛏️</span><strong>${p.beds}</strong><span>Bedrooms</span></div><div><span class="stat-icon" aria-hidden="true">🛁</span><strong>${p.baths}</strong><span>Bathrooms</span></div><div><span class="stat-icon">↔</span><strong>${p.sqft.toLocaleString()}</strong><span>Square feet</span></div></div><div class="listing-actions"><button class="view" data-id="${p.id}">View property ↗</button><a class="map-link" href="${mapUrl(p)}" target="_blank" rel="noopener noreferrer">⌖ Map ↗</a></div></div></article>`).join("");
  activateGalleries(cards);
- updatePriceMap(found);
  cards.querySelectorAll("[data-id]").forEach(b=>b.addEventListener("click",()=>details(Number(b.dataset.id))));
 }
 function details(id){
@@ -189,9 +188,5 @@ document.getElementById("filter").onclick=render;
 document.getElementById("year").textContent=new Date().getFullYear();
 document.getElementById("menu").onclick=()=>document.querySelector(".header nav").classList.toggle("open");
 document.querySelectorAll(".header nav a").forEach(a=>a.addEventListener("click",()=>document.querySelector(".header nav").classList.remove("open")));
-document.getElementById("contactForm").addEventListener("submit",e=>{e.preventDefault();const d=new FormData(e.target);const body="Name: "+d.get("name")+"
-Email: "+d.get("email")+"
-Topic: "+d.get("topic")+"
-
-"+d.get("message");window.location.href="mailto:?subject="+encodeURIComponent("RentThatDoor: "+d.get("topic"))+"&body="+encodeURIComponent(body);alert("Your email app will open with a prepared message. Add the RentThatDoor contact email as the recipient before sending.")});
+document.getElementById("contactForm").addEventListener("submit",e=>{e.preventDefault();const d=new FormData(e.target);const body=["Name: "+d.get("name"),"Email: "+d.get("email"),"Topic: "+d.get("topic"),"",d.get("message")].join("\\n");window.location.href="mailto:?subject="+encodeURIComponent("RentThatDoor: "+d.get("topic"))+"&body="+encodeURIComponent(body);alert("Your email app will open with a prepared message. Add the RentThatDoor contact email as the recipient before sending.")});
 render();
