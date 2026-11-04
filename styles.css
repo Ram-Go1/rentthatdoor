@@ -303,3 +303,13 @@ img,iframe{max-width:100%}
  .rental-filters .search-field select{width:100%;min-width:0;font-size:11px;padding:2px 0}
  .rental-filters .btn{grid-column:1/-1;width:100%;height:36px;min-height:36px}
 }
+
+
+/* Slim, low-profile rental filters on phones */
+@media(max-width:720px){
+ .search-panel.rental-filters{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:4px!important;padding:3px!important;margin-top:10px!important;border:0!important;box-shadow:none!important;background:transparent!important}
+ .search-panel.rental-filters .search-field{box-sizing:border-box!important;min-height:0!important;height:43px!important;padding:4px 5px!important;margin:0!important;border:1px solid #d9dfdc!important;border-radius:2px!important;box-shadow:none!important;display:flex!important;flex-direction:column!important;justify-content:center!important;gap:1px!important}
+ .search-panel.rental-filters .search-field span{font-size:8px!important;line-height:10px!important;font-weight:600!important;letter-spacing:0!important}
+ .search-panel.rental-filters .search-field select{height:20px!important;min-height:0!important;line-height:18px!important;font-size:10px!important;padding:0 12px 0 0!important;margin:0!important;max-width:100%!important}
+ .search-panel.rental-filters .btn{height:30px!important;min-height:30px!important;padding:4px 8px!important;font-size:10px!important;border-radius:2px!important}
+}
