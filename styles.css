@@ -323,3 +323,23 @@ img,iframe{max-width:100%}
  .search-panel.rental-filters .search-field select{height:20px!important;min-height:0!important;font-size:11px!important;line-height:18px!important;padding:0 12px 0 0!important;margin:0!important}
  .search-panel.rental-filters .btn{height:42px!important;min-height:42px!important;padding:5px 8px!important;font-size:10px!important;border-radius:2px!important;white-space:nowrap!important}
 }
+
+
+/* Reference-inspired search bar: wide search left, compact filters right */
+@media(min-width:721px){
+ .search-panel.rental-filters{display:grid!important;grid-template-columns:minmax(220px,1fr) 120px 115px 115px 100px!important;width:100%!important;max-width:none!important;align-items:center!important;gap:9px!important;padding:0!important;margin:16px 0!important;background:transparent!important;border:0!important;box-shadow:none!important}
+ .rental-filters .location-search{height:44px!important;display:flex!important;align-items:center!important;gap:9px!important;padding:0 13px!important;background:#fff!important;border:1px solid #e2e5e8!important;border-radius:4px!important;box-shadow:0 1px 3px #0000000a!important;min-width:0!important}
+ .rental-filters .location-search span{font-size:25px!important;color:#7a8188!important;line-height:1!important}
+ .rental-filters .location-search input{border:0!important;outline:0!important;box-shadow:none!important;width:100%!important;min-width:0!important;font-size:13px!important;background:transparent!important;color:#263746!important;padding:0!important}
+ .rental-filters .search-field{height:44px!important}
+ .rental-filters .btn{height:44px!important;min-height:44px!important}
+}
+@media(max-width:720px){
+ .search-panel.rental-filters{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ .rental-filters .location-search{grid-column:1/-1!important;height:38px!important;display:flex!important;align-items:center!important;gap:8px!important;padding:0 10px!important;border:1px solid #d9dfdc!important;border-radius:3px!important;background:#fff!important}
+ .rental-filters .location-search span{font-size:22px!important;color:#7a8188!important}
+ .rental-filters .location-search input{width:100%!important;min-width:0!important;border:0!important;outline:0!important;background:transparent!important;font-size:12px!important;padding:0!important}
+}
+@media(min-width:721px) and (max-width:1000px){
+ .search-panel.rental-filters{grid-template-columns:minmax(180px,1fr) repeat(3,100px) 90px!important;gap:5px!important}
+}
