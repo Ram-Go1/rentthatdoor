@@ -139,3 +139,21 @@ dialog{max-height:90vh;overflow:auto}
 .listing-card .view{background:#202f68}
 .listing-card .photo-slider .slide-count{background:#202f68e6}
 @media(max-width:600px){.listing-card .property-photo{height:245px}.listing-card .property-info{padding:20px 17px}.listing-price{font-size:29px}.listing-availability{font-size:12px}.listing-address{font-size:15px}.listing-chips span{font-size:11px}.listing-stats>div{padding:3px 5px}.listing-stats strong{font-size:17px}.listing-stats .stat-icon{font-size:21px}.listing-stats>div>span:last-child{font-size:11px}}
+
+
+/* Compact property listing cards: smaller photos and thumbnails */
+.results-list .listing-card .property-photo{height:175px}
+.results-list .listing-card .property-info{padding:16px 18px 18px}
+.results-list .listing-card .listing-price{font-size:26px}
+.results-list .listing-card .listing-price small{font-size:14px}
+.results-list .listing-card .listing-address{font-size:14px;margin-top:13px}
+.results-list .listing-card .listing-chips{margin-top:11px;gap:6px}
+.results-list .listing-card .listing-chips span{font-size:11px;padding:6px 8px}
+.results-list .listing-card .listing-divider{height:5px;margin:14px 0}
+.results-list .listing-card .listing-stats strong{font-size:16px}
+.results-list .listing-card .listing-stats .stat-icon{font-size:19px}
+.results-list .listing-card .listing-stats>div>span:last-child{font-size:11px;margin-top:4px}
+.results-list .listing-card .listing-actions{margin-top:15px}
+.results-list .listing-card .photo-slider{min-height:0}
+.results-list .listing-card .photo-slider button{width:30px;height:30px;font-size:23px}
+@media(max-width:600px){.results-list .listing-card .property-photo{height:160px}.results-list .listing-card .property-info{padding:14px}.results-list .listing-card .listing-price{font-size:24px}}
